@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+
+    <bR><br><br><br>
+    <div class="jumbotron">
+        <h1 class="display-3">data list</h1>
+        <ul class="list-group">
+            {% for d in data %}
+            <li class="list-group-item">{{ d.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <bR><br><br><br>
+
+{% endblock %}
