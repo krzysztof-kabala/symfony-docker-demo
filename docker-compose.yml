@@ -2,8 +2,9 @@ version: '3'
 
 services:
   redis:
-    image: redis:alpine
+    image: redis:4-alpine
     container_name: redis.krzysztof.kabala.test
+    command: 'redis-server --save "" --appendonly no'
     stdin_open: true
     tty: true
     networks:
@@ -11,7 +12,7 @@ services:
     restart: always
 
   mysql:
-    image: mariadb
+    image: mariadb:10
     container_name: mysql.krzysztof.kabala.test
     stdin_open: true
     tty: true
@@ -38,7 +39,8 @@ services:
     labels:
        traefik.frontend.rule: "Host:{subdomain}.krzysztof.kabala.test,krzysztof.kabala.test"
     volumes:
-       - ./:/opt
+       - ./:/opt:cached
+       - ./docker/webapp/:/etc/apache2/sites-enabled:cached
        - ~/.ssh:/var/www/.ssh:cached
        - ~/.docker-composer:/var/www/.composer:cached
     links:
